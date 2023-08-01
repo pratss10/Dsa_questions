@@ -16,10 +16,10 @@ int dfs(int &n, vector<vector<int>> &a,int i, int j,set<pair<int,int>> &vi ){
   if(i+1 <n && abs(a[i+1][j]-a[i][j])==1 ){
     ans = max(ans, 1 + dfs(n, a, i + 1, j,vi));
   }
-  if(j+1 >=0 && abs(a[i][j+1]-a[i][j])==1 ){
+  if(j+1 <n && abs(a[i][j+1]-a[i][j])==1 ){
     ans = max(ans, 1 + dfs(n, a, i, j + 1,vi));
   }
-  if(j-1 <n && abs(a[i][j-1]-a[i][j])==1 ){
+  if(j-1 >=0 && abs(a[i][j-1]-a[i][j])==1 ){
     ans = max(ans, 1 + dfs(n, a, i, j - 1,vi));
   }
   return ans;
@@ -50,10 +50,3 @@ signed main(){
   
   return 0;
 }
-
-
-
-
-
-
-
