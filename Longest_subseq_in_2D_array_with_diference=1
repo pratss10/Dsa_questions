@@ -4,49 +4,51 @@
 
 using namespace std;
 
-int dfs(int &n, vector<vector<int>> &a,int i, int j,set<pair<int,int>> &vi ){
-  int ans = 1;
-  if(vi.find({i,j})!=vi.end()){
-    return 0;
-  }
-  vi.insert({i,j}) ;
-  if(i-1 >=0 && abs(a[i-1][j]-a[i][j])==1 ){
-    ans = max(ans, 1 + dfs(n, a, i - 1, j,vi));
-  }
-  if(i+1 <n && abs(a[i+1][j]-a[i][j])==1 ){
-    ans = max(ans, 1 + dfs(n, a, i + 1, j,vi));
-  }
-  if(j+1 <n && abs(a[i][j+1]-a[i][j])==1 ){
-    ans = max(ans, 1 + dfs(n, a, i, j + 1,vi));
-  }
-  if(j-1 >=0 && abs(a[i][j-1]-a[i][j])==1 ){
-    ans = max(ans, 1 + dfs(n, a, i, j - 1,vi));
-  }
-  return ans;
+ll dp[200][200] = {} ;
+
+int dfs(int &n, vector<vector<int>> &a, int i, int j, set<pair<int, int>> &vi ) {
+	int ans = 1;
+	if (vi.find({i, j}) != vi.end()) {
+		return dp[i][j];
+	}
+	vi.insert({i, j}) ;
+	if (i - 1 >= 0 && (a[i - 1][j] - a[i][j]) == 1 ) {
+		ans = max(ans, 1 + dfs(n, a, i - 1, j, vi));
+	}
+	if (i + 1 < n && (a[i + 1][j] - a[i][j]) == 1 ) {
+		ans = max(ans, 1 + dfs(n, a, i + 1, j, vi));
+	}
+	if (j + 1 < n && (a[i][j + 1] - a[i][j]) == 1 ) {
+		ans = max(ans, 1 + dfs(n, a, i, j + 1, vi));
+	}
+	if (j - 1 >= 0 && (a[i][j - 1] - a[i][j]) == 1 ) {
+		ans = max(ans, 1 + dfs(n, a, i, j - 1, vi));
+	}
+	return dp[i][j] = ans;
 }
 
-signed main(){
-  ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-  int n;
-  cin >> n;
-  vector<std::vector<int>> a;
-  fi(n){
-    vector<int> temp(n,0);
-    a.push_back(temp);
-    for(int j =0;j<n;j++){
-      cin >> a[i][j];
-    }
-  }
-  int ans = 1;
-  set<pair<int,int>> vi;
-  fi(n){
-    for(int j =0;j<n;j++){
-      ans = max(ans,dfs(n,a,i,j,vi));
-    }
-  }
-  cout << ans;
-  
-  
-  
-  return 0;
+signed main() {
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+	int n;
+	cin >> n;
+	vector<std::vector<int>> a;
+	fi(n) {
+		vector<int> temp(n, 0);
+		a.push_back(temp);
+		for (int j = 0; j < n; j++) {
+			cin >> a[i][j];
+		}
+	}
+	int ans = 1;
+	set<pair<int, int>> vi;
+	fi(n) {
+		for (int j = 0; j < n; j++) {
+			ans = max(ans, dfs(n, a, i, j, vi));
+		}
+	}
+	cout << ans;
+
+
+
+	return 0;
 }
